@@ -3,13 +3,6 @@ package jp.co.sss.lms.ct.f01_login1;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -18,8 +11,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -48,21 +39,12 @@ public class Case02 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		//アクセスおよびタイトル検証
-		webDriver.get("http://localhost:8080/lms");
+		goTo("http://localhost:8080/lms");
 		assertEquals("ログイン | LMS", webDriver.getTitle());
-		//スクリーンショット取得、保存処理
-		TakesScreenshot takesScreenshot = (TakesScreenshot) webDriver;
-		File file = takesScreenshot.getScreenshotAs(OutputType.FILE);
-		LocalDateTime localDateTime = LocalDateTime.now();
-		String localDateTimeStr = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-		String fileName = "Case02_1_" + localDateTimeStr + ".png";
 
-		try {
-			Files.copy(file.toPath(), Paths.get("./evidence/" + fileName));
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println(fileName + "は保存できませんでした。");
-		}
+		//スクリーンショット取得、保存処理
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -73,32 +55,26 @@ public class Case02 {
 		WebElement idIdElement = webDriver.findElement(By.id("loginId"));
 		idIdElement.clear();
 		idIdElement.sendKeys("Stranger001");
+
 		//パスワードにStranger001入力
 		WebElement idPwElement = webDriver.findElement(By.id("password"));
 		idPwElement.clear();
 		idPwElement.sendKeys("Stranger001");
+
 		//ログインボタン押下
 		WebElement cssBtnElement = webDriver.findElement(By.cssSelector(".btn.btn-primary"));
 		cssBtnElement.click();
+
 		//エラーメッセージ取得
 		WebElement idErrorElement = webDriver.findElement(By.cssSelector(".help-inline.error"));
+
 		//期待値通りか検証
 		assertTrue(idErrorElement.isDisplayed());
 		assertEquals("* ログインに失敗しました。", idErrorElement.getText());
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 		//スクリーンショット取得、保存処理
-		TakesScreenshot takesScreenshot = (TakesScreenshot) webDriver;
-		File file = takesScreenshot.getScreenshotAs(OutputType.FILE);
-		LocalDateTime localDateTime = LocalDateTime.now();
-		String localDateTimeStr = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-		String fileName = "Case02_2_" + localDateTimeStr + ".png";
-
-		try {
-			Files.copy(file.toPath(), Paths.get("./evidence/" + fileName));
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println(fileName + "は保存できませんでした。");
-		}
+		getEvidence(new Object() {
+		});
 	}
 
 }
