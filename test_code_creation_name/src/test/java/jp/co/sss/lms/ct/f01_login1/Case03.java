@@ -51,12 +51,12 @@ public class Case03 {
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
-		//ログインIDにStranger001入力
+		//ログインIDにStudentAA01入力
 		WebElement idIdElement = webDriver.findElement(By.id("loginId"));
 		idIdElement.clear();
 		idIdElement.sendKeys("StudentAA01");
 
-		//パスワードにStranger001入力
+		//パスワードにStudentAA01Rename入力
 		WebElement idPwElement = webDriver.findElement(By.id("password"));
 		idPwElement.clear();
 		idPwElement.sendKeys("StudentAA01Rename");
