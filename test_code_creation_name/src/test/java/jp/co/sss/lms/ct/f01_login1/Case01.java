@@ -36,6 +36,7 @@ public class Case01 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
+		//アクセスおよびタイトル検証
 		webDriver.get("http://localhost:8080/lms");
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 	}

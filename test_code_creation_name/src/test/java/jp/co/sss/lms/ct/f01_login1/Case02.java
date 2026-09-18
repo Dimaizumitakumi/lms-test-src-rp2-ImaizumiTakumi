@@ -38,6 +38,7 @@ public class Case02 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
+		//アクセスおよびタイトル検証
 		webDriver.get("http://localhost:8080/lms");
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 	}
@@ -46,15 +47,20 @@ public class Case02 {
 	@Order(2)
 	@DisplayName("テスト02 DBに登録されていないユーザーでログイン")
 	void test02() {
+		//ログインIDにStranger001入力
 		WebElement idIdElement = webDriver.findElement(By.id("loginId"));
 		idIdElement.clear();
 		idIdElement.sendKeys("Stranger001");
+		//パスワードにStranger001入力
 		WebElement idPwElement = webDriver.findElement(By.id("password"));
 		idPwElement.clear();
 		idPwElement.sendKeys("Stranger001");
+		//ログインボタン押下
 		WebElement cssBtnElement = webDriver.findElement(By.cssSelector(".btn.btn-primary"));
 		cssBtnElement.click();
+		//エラーメッセージ取得
 		WebElement idErrorElement = webDriver.findElement(By.cssSelector(".help-inline.error"));
+		//期待値通りか検証
 		assertTrue(idErrorElement.isDisplayed());
 		assertEquals("* ログインに失敗しました。", idErrorElement.getText());
 		assertEquals("ログイン | LMS", webDriver.getTitle());
