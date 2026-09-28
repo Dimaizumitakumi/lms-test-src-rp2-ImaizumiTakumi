@@ -168,7 +168,7 @@ public class Case05 {
 
 		//期待値通りか検証
 		assertEquals("よくある質問 | LMS", webDriver.getTitle());
-		assertEquals("", nameKeyElement.getText());
+		assertEquals("", nameKeyElement.getAttribute("value"));
 
 		//スクリーンショット取得、保存処理
 		getEvidence(new Object() {
